@@ -1,1 +1,1 @@
-
+Time Scheduler is a app which helps its primary and secondary users to schedule their work in time slots. The primary users are faculties and students. On the other hand secondary users are event organizers. This application is developed in java and we endeavour to upgrade it in android. 

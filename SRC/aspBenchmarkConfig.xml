@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plannerBenchmark>
+    <parallelBenchmarkCount>AUTO</parallelBenchmarkCount>
+    <benchmarkDirectory>local/benchmarkReport/</benchmarkDirectory>
+    <inheritedSolverBenchmark>
+        <problemBenchmarks>
+            <xStreamAnnotatedClass>org.betaiotazeta.autoshiftplanner.Solution</xStreamAnnotatedClass>
+            <inputSolutionFile>data/unsolved/asp_7employees_forbidden_mandatory.xml</inputSolutionFile>
+            <!-- <inputSolutionFile>local/solutionFile/anotherSolutionFile.xml</inputSolutionFile> -->
+            <!-- <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled> -->
+        </problemBenchmarks>
+        <solver>
+            <!-- Common solver configuration -->
+            <environmentMode>REPRODUCIBLE</environmentMode>
+
+            <!-- Domain model configuration -->
+            <scanAnnotatedClasses>
+                <packageInclude>org.betaiotazeta.autoshiftplanner</packageInclude>
+            </scanAnnotatedClasses>
+
+            <!-- Score configuration -->
+            <scoreDirectorFactory>
+                <easyScoreCalculatorClass>org.betaiotazeta.autoshiftplanner.AspEasyScoreCalculator</easyScoreCalculatorClass>
+                <initializingScoreTrend>ANY</initializingScoreTrend>
+            </scoreDirectorFactory>
+            
+            <termination>
+                <bestScoreLimit>0hard/0soft</bestScoreLimit>
+                <secondsSpentLimit>180</secondsSpentLimit>
+            </termination>
+
+            <constructionHeuristic>
+                <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+            </constructionHeuristic>
+                                    
+        </solver>
+        <subSingleCount>9</subSingleCount>
+    </inheritedSolverBenchmark>
+   
+    <solverBenchmark>
+        <name>ChangeSwapPillarSHORTfilter</name>
+        <solver>
+            <!-- specific solver configuration -->
+            <localSearch>
+                <unionMoveSelector>
+                    <changeMoveSelector>
+                        <filterClass>org.betaiotazeta.autoshiftplanner.ForbiddenCellSelectionFilter</filterClass>
+                    </changeMoveSelector>
+                    <swapMoveSelector>
+                    </swapMoveSelector>
+                    <pillarChangeMoveSelector>
+                        <valueSelector variableName="timeGrain"/>
+                    </pillarChangeMoveSelector>
+                    <pillarChangeMoveSelector>
+                        <valueSelector variableName="shiftDuration"/>
+                    </pillarChangeMoveSelector>
+                </unionMoveSelector>
+                <localSearchType>LATE_ACCEPTANCE</localSearchType>
+            </localSearch>
+        </solver>
+    </solverBenchmark>
+    
+    <!--
+    <solverBenchmarkBluePrint>
+        <solverBenchmarkBluePrintType>EVERY_CONSTRUCTION_HEURISTIC_TYPE</solverBenchmarkBluePrintType>
+    </solverBenchmarkBluePrint>
+    -->
+
+</plannerBenchmark>
